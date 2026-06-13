@@ -1,4 +1,16 @@
-function Footer({ darkMode }) {
+function Footer({ darkMode, onNavigate }) {
+  const quickLinks = [
+    { id: 'home', label: 'Home' },
+    { id: 'features', label: 'Features' },
+    { id: 'about', label: 'About' },
+  ]
+
+  const resources = [
+    { label: 'FAQ', href: '#' },
+    { label: 'Privacy Policy', href: '#' },
+    { label: 'Terms of Service', href: '#' },
+  ]
+
   return (
     <footer className={`mt-auto border-t ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-gray-100'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -25,11 +37,14 @@ function Footer({ darkMode }) {
           <div>
             <h4 className={`font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Quick Links</h4>
             <ul className="space-y-2">
-              {['Home', 'Features', 'About', 'Contact'].map((link) => (
-                <li key={link}>
-                  <a href="#" className={`${darkMode ? 'text-gray-400 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'} transition-colors`}>
-                    {link}
-                  </a>
+              {quickLinks.map((link) => (
+                <li key={link.id}>
+                  <button
+                    onClick={() => onNavigate(link.id)}
+                    className={`${darkMode ? 'text-gray-400 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'} transition-colors`}
+                  >
+                    {link.label}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -39,10 +54,10 @@ function Footer({ darkMode }) {
           <div>
             <h4 className={`font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Resources</h4>
             <ul className="space-y-2">
-              {['Health Blog', 'FAQ', 'Privacy Policy', 'Terms of Service'].map((link) => (
-                <li key={link}>
-                  <a href="#" className={`${darkMode ? 'text-gray-400 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'} transition-colors`}>
-                    {link}
+              {resources.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className={`${darkMode ? 'text-gray-400 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'} transition-colors`}>
+                    {link.label}
                   </a>
                 </li>
               ))}

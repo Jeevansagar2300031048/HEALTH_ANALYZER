@@ -1,9 +1,15 @@
-function Header({ darkMode, setDarkMode }) {
+function Header({ darkMode, setDarkMode, onNavigate, currentView }) {
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'features', label: 'Features' },
+    { id: 'about', label: 'About' },
+  ]
+
   return (
     <header className={`sticky top-0 z-50 ${darkMode ? 'glass-dark border-slate-800' : 'glass border-gray-100'} border-b`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => onNavigate('home')}>
             <div className="relative">
               <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30 animate-pulse-slow">
                 <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -21,10 +27,22 @@ function Header({ darkMode, setDarkMode }) {
           </div>
           
           <div className="flex items-center space-x-4">
-            <nav className="hidden md:flex items-center space-x-6">
-              <a href="#" className={`${darkMode ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'} transition-colors font-medium`}>Home</a>
-              <a href="#" className={`${darkMode ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'} transition-colors font-medium`}>Features</a>
-              <a href="#" className={`${darkMode ? 'text-gray-300 hover:text-emerald-400' : 'text-gray-600 hover:text-emerald-600'} transition-colors font-medium`}>About</a>
+            <nav className="hidden md:flex items-center space-x-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  className={`px-4 py-2 rounded-xl font-medium transition-all text-sm ${
+                    currentView === item.id
+                      ? darkMode
+                        ? 'bg-emerald-500/10 text-emerald-400'
+                        : 'bg-emerald-50 text-emerald-600'
+                      : `${darkMode ? 'text-gray-300 hover:text-emerald-400 hover:bg-slate-800' : 'text-gray-600 hover:text-emerald-600 hover:bg-gray-100'}`
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
             </nav>
             
             {/* Dark Mode Toggle */}
