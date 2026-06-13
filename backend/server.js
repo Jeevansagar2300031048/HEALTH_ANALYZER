@@ -1,5 +1,6 @@
 // Local development server — imports shared health-core and starts listening
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const { createApp } = require('../shared/health-core');
 
 const app = createApp();
